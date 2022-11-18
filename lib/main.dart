@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'Models/user_model.dart';
 import 'UI/Pages/login_page.dart';
 
 
@@ -18,7 +17,7 @@ class TurismoPorColombia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Paisajeando Por Colombia',
       home: LoginBody(),

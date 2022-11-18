@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import '../../Controller/db_manager.dart';
+import '../../Models/favorite_model.dart';
 import '../Pages/favorites.dart';
 import '../Pages/login_page.dart';
 import '../Pages/my_home.dart';
 import '../Pages/places_list.dart';
 
-Widget mainMenu(BuildContext context) {
+
+List<Favorite> favoriteslist = [];
+
+_getFavorite() async{
+  favoriteslist = await DbManager.db.favoritesList();
+}
+
+Widget mainMenu(BuildContext context){
+
   return Drawer(
     shape: const RoundedRectangleBorder(),
     child: ListView(
@@ -63,7 +73,8 @@ Widget mainMenu(BuildContext context) {
           leading: const Icon(Icons.star),
           textColor: Colors.red,
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const Favorites()));
+            _getFavorite();
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> Favorites(favoriteslist)));
           },
         ),
         const SizedBox(

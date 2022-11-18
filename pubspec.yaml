@@ -19,6 +19,8 @@ dependencies:
   shared_preferences:
   firebase_core:
   cloud_firestore:
+  sqflite:
+  like_button:
 
 dev_dependencies:
   flutter_test:

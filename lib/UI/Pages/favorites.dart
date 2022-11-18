@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import '../../Models/favorite_model.dart';
 import '../widgets/main_menu.dart';
-import 'place_view.dart';
+import 'fav_place_view.dart';
 
+// ignore: must_be_immutable
 class Favorites extends StatefulWidget {
-  const Favorites({super.key});
+  List<Favorite> favoritesList = [];
+  Favorites(this.favoritesList, {super.key});
 
   @override
   State<Favorites> createState() => _FavoritesState();
 }
 
 class _FavoritesState extends State<Favorites> {
-  int favorites = 1;
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,24 +33,25 @@ class _FavoritesState extends State<Favorites> {
   }
 
   favoritesBody() {
-    return favorites == 0 ? const Center(
+    return widget.favoritesList.isEmpty? const Center(
       child: Text('No hay Favoritos'),
     ) : ListView.builder(
-      itemCount: favorites,
+      itemCount: widget.favoritesList.length,
       itemBuilder: (BuildContext context, int index) {
-        return myItem(index);
+        return myItem(widget.favoritesList[index]);
       },
     );
   }
 
-  myItem(index) {
+  myItem(Favorite favorite) {
     return ListTile(
       onTap: (){
-        /*Navigator.push(context, MaterialPageRoute(builder: (context) => const PlaceView(null))
-        );*/
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>  FavPlaceView(favorite))
+        );
       },
       trailing: const Icon(Icons.arrow_forward_ios),
-      title: Text('Item ${index+1}', style: const TextStyle(fontSize: 20),),
+      title: Text(favorite.name, style: const TextStyle(fontSize: 20, color: Colors.red)),
+      subtitle: Text('${favorite.city},${favorite.state}',style: const TextStyle(fontSize: 18)),
     );
   }
 }
